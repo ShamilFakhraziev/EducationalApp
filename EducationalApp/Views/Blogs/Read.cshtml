@@ -1,0 +1,35 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = Model.Title;
+}
+<h2 class="h2" style="font-weight:200">@Model.Title</h2>
+@if (Model.ImagePath != null)
+{
+    <img src="/images/@Model.ImagePath" class="float-left w-50 h-auto pr-3 pl-3" />
+}
+else
+{
+    <img src="/images/BlogDefault.jpg" class="card-img-top float-left w-50 h-auto pr-3 pb-3">
+}
+
+@Html.Raw(Model.Text)
+@if (User.IsInRole("moder") || User.IsInRole("admin"))
+{
+
+    <div class="row">
+        @if (!Model.isCorrect)
+        {
+            <form asp-action="ApplyBlog" asp-controller="Blogs" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="submit" value="Опубликовать" class="btn btn-outline-success m-2" />
+
+            </form>
+        }
+        <form asp-action="DeleteBlog" asp-controller="Blogs" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="submit" value="Удалить" class="btn btn-outline-danger m-2" />
+        </form>
+    </div>
+
+
+}

@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+@model List<BlogsViewModel>
+<div class="text-center">
+    <h3 class="h3" style="font-weight:400">Статьи</h3>
+    @if (Model.Count == 0)
+    {
+        <p>Статьи отсутствуют</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var s in Model)
+            {
+            <div class="card m-3" style="width: 18rem; border-width: 3px ">
+                @if (s.Blog.ImagePath != null)
+                {
+                    <img src="/images/@s.Blog.ImagePath" height="200" class="card-img-top p-2">
+                }
+                else
+                {
+                    <img height="200" src="/images/BlogDefault.jpg" class="card-img-top p-2">
+                }
+                <div class="card-body">
+                    <h5 class="card-title" style="font-weight:400">@s.Blog.Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Автор: @s.User.UserName</h6>
+
+                    <p class="card-text">@s.Blog.Description</p>
+                    <a asp-action="Read" asp-controller="Blogs" asp-route-id="@s.Blog.Id" class="btn btn-primary">Читать</a>
+                </div>
+            </div>
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,39 @@
+﻿@model Blog
+@{
+    ViewData["Title"] = "Создание статьи";
+}
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<h2>Вы уже на пути создания своей статьи, keep going!</h2>
+<form method="post" asp-controller="Blogs" asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Title"></label> <br />
+        <input asp-for="Title" />
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div>
+        <label asp-for="Description"></label> <br />
+        <input type="text" asp-for="Description" />
+        <span asp-validation-for="Description"></span>
+    </div>
+    <div>
+        <label asp-for="Text"></label> <br />
+        <textarea asp-for="Text" id="blogBody"></textarea>
+        <span asp-validation-for="Text"></span>
+    </div>
+    <div>
+        <label asp-for="ImagePath"></label>
+        <input type="file" name="imagePath" id="imagePath" />
+
+    </div>
+    <div>
+        <input type="hidden" asp-for="UserId" value="@ViewBag.UserId" />
+    </div>
+    <input type="submit" value="На модерацию" class="btn btn-outline-success mt-3" />
+</form>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var editor = CKEDITOR.replace('blogBody')
+    }
+    );
+</script>
